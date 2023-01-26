@@ -18,13 +18,13 @@ const Travels = () => {
     const [id, setId] = useState('')
 
     const fetchData = async () => {
-        const {data} = await axios.get("https://auth-pmhp.onrender.com/api/travel")
+        const {data} = await axios.get("https://travels-7b04.onrender.com/api/travel")
         setTravel(data.travels)
     }
 
     const deletePost = async (e) => {
         e.preventDefault()
-        await axios.delete(`https://auth-pmhp.onrender.com/api/travel/${id}`)
+        await axios.delete(`https://travels-7b04.onrender.com/api/travel/${id}`)
         fetchData()
     }
 

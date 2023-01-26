@@ -22,7 +22,7 @@ const Update = () => {
     const {id} = useParams()
 
     const fetchData = async () => {
-        const {data} = await axios.get(`https://mern-app-travel-crud.herokuapp.com/api/travel/${id}`)
+        const {data} = await axios.get(`https://travels-7b04.onrender.com/api/travel/${id}`)
         setTitle(data.travel.title)
         setDesc(data.travel.desc)
         setImage(data.travel.image)

@@ -22,7 +22,7 @@ const Add = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        await axios.post('https://mern-app-travel-crud.herokuapp.com/api/travel/add', {
+        await axios.post('https://travels-7b04.onrender.com/api/travel/add', {
             title,
             desc,
             image
