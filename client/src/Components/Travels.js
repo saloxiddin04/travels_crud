@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import {
     Card,
     CardBody,
@@ -9,35 +9,52 @@ import {
     Col,
     Container
 } from "reactstrap";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
 const Travels = () => {
 
     const [travels, setTravel] = useState([])
+    const [loading, setLoading] = useState(false)
     const [id, setId] = useState('')
 
     const fetchData = async () => {
-        const {data} = await axios.get("https://travels-7b04.onrender.com/api/travel")
-        setTravel(data.travels)
+        setLoading(true)
+        try {
+            const { data } = await axios.get("https://travels-7b04.onrender.com/api/travel")
+            setTravel(data.travels)
+            setLoading(false)
+        } catch (e) {
+            console.log(e.message)
+            setLoading(false)
+        }
     }
 
     const deletePost = async (e) => {
         e.preventDefault()
-        await axios.delete(`https://travels-7b04.onrender.com/api/travel/${id}`)
-        fetchData()
+        setLoading(true)
+        try {
+            await axios.delete(`https://travels-7b04.onrender.com/api/travel/${id}`)
+            fetchData()
+            setLoading(false)
+        } catch (error) {
+            console.log(error)
+            setLoading(false)
+        }
     }
 
     useEffect(() => {
         fetchData()
     }, [])
 
+    if (loading) return 'Loading...'
+
     return (
         <div className="my-3">
-            {travels.map(tb => (
-                <Container className="my-3" key={tb._id}>
-                    <Row>
-                        <Col md={5}>
+            <Container className="my-3">
+                <Row className="d-flex gap-5">
+                    {travels.map(tb => (
+                        <Col md={5} key={tb._id}>
                             <Card>
                                 <img
                                     alt={tb.title}
@@ -65,10 +82,10 @@ const Travels = () => {
                                 </CardBody>
                             </Card>
                         </Col>
-                    </Row>
-                </Container>
-            ))}
 
+                    ))}
+                </Row>
+            </Container>
         </div>
     )
 }
