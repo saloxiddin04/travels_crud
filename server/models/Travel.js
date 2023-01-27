@@ -7,7 +7,7 @@ const travelModel = new Schema({
         minlength: 3
     },
     image: {
-        type: String,
+        type: Array,
         required: true
     },
     desc: {
